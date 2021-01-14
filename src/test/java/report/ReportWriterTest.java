@@ -20,7 +20,7 @@ public class ReportWriterTest {
     private File actualFile;
 
     @AfterEach
-    public void clean() throws IOException {
+    public void clean() {
         actualFile.delete();
     }
 

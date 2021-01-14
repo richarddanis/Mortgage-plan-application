@@ -3,7 +3,7 @@ package model;
 import java.util.Objects;
 
 /**
- * Class for representing an mortage report.
+ * Class for representing an mortgage report.
  */
 public class MortgageCalculation {
 
