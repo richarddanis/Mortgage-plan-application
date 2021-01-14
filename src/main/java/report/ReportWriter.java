@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 public class ReportWriter {
 
     private static final Logger LOGGER = Logger.getLogger(ReportWriter.class.getName());
-
     private static final String FILE_FORMAT = ".txt";
 
     public ReportWriter() {

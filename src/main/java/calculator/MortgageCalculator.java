@@ -16,6 +16,7 @@ public class MortgageCalculator {
     }
 
     /**
+     * Calculate the mortgage.
      *
      * @param prospectList list of read prospects
      * @return list of mortgage object

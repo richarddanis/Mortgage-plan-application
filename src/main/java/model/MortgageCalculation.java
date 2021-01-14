@@ -23,11 +23,18 @@ public class MortgageCalculation {
         this.paymentPerMonth = paymentPerMonth;
     }
 
+    /**
+     * Retrieve the mortgage report sentence.
+     */
     public String getReportSentence(){
         DecimalFormat doubleDecimalFormat = new DecimalFormat("#.##");
         return String.format(REPORT_SENTENCE, customerName, doubleDecimalFormat.format(borrow), period, doubleDecimalFormat.format(paymentPerMonth));
     }
 
+    /**
+     * Retrieve the report file name.
+     * Example: user-report
+     */
     public String getReportFileName(){
         return customerName + FILE_NAME_PLACE_HOLDER;
     }
