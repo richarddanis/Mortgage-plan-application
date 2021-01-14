@@ -1,4 +1,4 @@
-# Mortage Basic Java Application
+# Mortgage Basic Java Application
 ## Prerequisites
 * Java 8
 * Maven 3.5.0+

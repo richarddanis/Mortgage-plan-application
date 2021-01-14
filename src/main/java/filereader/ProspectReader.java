@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,6 +16,8 @@ import java.util.stream.Stream;
  * Specific file reader for {@link Prospect}.
  */
 public class ProspectReader {
+
+   private static final Logger LOGGER = Logger.getLogger(ProspectReader.class.getName());
 
    private static final int FIRST_LINE = 1;
    private final ProspectResolver prospectResolver;
@@ -40,7 +43,7 @@ public class ProspectReader {
                  .filter(Objects::nonNull)
                  .collect(Collectors.toList());
       } catch (IOException e) {
-         System.out.printf("Unexpected exception while read a file, filepath: %s, exception: %s%n", path, e);
+         LOGGER.warning(String.format("Unexpected exception while read a file, filepath: %s, exception: %s%n", path, e));
       }
 
       return prospectList;
@@ -51,7 +54,7 @@ public class ProspectReader {
       try{
          prospect = prospectResolver.mapFrom(lines);
       } catch (Exception e) {
-         System.out.printf("Cannot resolve the given line: %s ,exception: %s%n", lines, e);
+         LOGGER.warning(String.format("Cannot resolve the given line: %s ,exception: %s%n", lines, e));
       }
       return prospect;
    }

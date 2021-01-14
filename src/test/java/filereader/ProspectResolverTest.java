@@ -38,26 +38,6 @@ public class ProspectResolverTest {
     }
 
     @Test
-    public void testShouldResolveLineWhenLastCharacterContainsComma(){
-        String input = "FullName,1000,1,1,";
-        Prospect expected = new Prospect("FullName", 1000,1,1);
-
-        Prospect actual = resolver.mapFrom(input);
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testShouldResolveLineWhenLineHasExtendedFields(){
-        String input = "FullName,1000,1,1,extendField";
-        Prospect expected = new Prospect("FullName", 1000, 1, 1);
-
-        Prospect actual = resolver.mapFrom(input);
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
     public void testShouldResolveLineWhenLoanIsFloatNumber(){
         String input = "FullName, 1000.5,1,1";
         Prospect expected = new Prospect("FullName", 1000.5, 1, 1);

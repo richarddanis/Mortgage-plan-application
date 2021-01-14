@@ -26,10 +26,10 @@ public class ReportWriterTest {
 
     @Test
     public void testShouldGenerateReportFile() throws IOException {
-        new ReportWriter().writeOutFile(Collections.singletonList(new MortgageCalculation("testName", 200.5, 3, 2.5)));
+        new ReportWriter().writeOutFile(Collections.singletonList(new MortgageCalculation("test", 200.5, 3, 2.5)));
         Path actualFilePath = Paths.get("test-report.txt");
         actualFile = actualFilePath.toFile();
 
-        Assertions.assertEquals("test", new String(Files.readAllBytes(actualFilePath)));
+        Assertions.assertEquals("test wants to borrow 200.5 € for a period of 3 years and pay 2.5 € each month", new String(Files.readAllBytes(actualFilePath)));
     }
 }

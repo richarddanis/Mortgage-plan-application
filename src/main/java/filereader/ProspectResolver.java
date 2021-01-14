@@ -2,6 +2,11 @@ package filereader;
 
 import model.Prospect;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ProspectResolver {
 
     private static final String QUOTE = "\"";
@@ -19,56 +24,25 @@ public class ProspectResolver {
      * @return generated prospect
      */
     public Prospect mapFrom(String line) {
-        LinePart nameSection = resolveFullName(line);
-        LinePart remainLineBeforeLoan = resolveNumericValue(nameSection.getRemainLine());
-        LinePart remainLineBeforeInterest = resolveNumericValue(remainLineBeforeLoan.getRemainLine());
-        LinePart remainLifeBeforeYears = resolveNumericValue(remainLineBeforeInterest.getRemainLine());
+        List<String> split = new ArrayList<>();
 
-        String fullName = nameSection.getResult();
-        double totalLoan = Double.parseDouble(remainLineBeforeLoan.getResult());
-        double interest = Double.parseDouble(remainLineBeforeInterest.getResult());
-        int years = Integer.parseInt(remainLifeBeforeYears.getResult());
+        if (line.startsWith(QUOTE)) {
+            String fullNameBetweenQuetes = line.split(QUOTE)[1];
+            String buildRegexp = QUOTE + fullNameBetweenQuetes + QUOTE + COMMA;
+            line = line.replaceAll(buildRegexp, EMPTY_STRING);
+            split.add(fullNameBetweenQuetes);
+        }
+
+        split.addAll(Arrays.stream(line.split(COMMA)).collect(Collectors.toList()));
+        return buildProspect(split);
+    }
+
+    private Prospect buildProspect(List<String> split) {
+        String fullName = split.get(0);
+        double totalLoan = Double.parseDouble(split.get(1));
+        double interest = Double.parseDouble(split.get(2));
+        int years = Integer.parseInt(split.get(3));
 
         return new Prospect(fullName, totalLoan, interest, years);
-    }
-
-    private LinePart resolveFullName(String line) {
-        return line.startsWith(QUOTE) ? resolveQuotesName(line) : resolveName(line);
-    }
-
-    private LinePart resolveQuotesName(String line){
-        String fullNameBetweenQuetes = line.split(QUOTE)[1];
-        String buildRegexp = QUOTE + fullNameBetweenQuetes + QUOTE + COMMA;
-        String remainLine = line.replaceAll(buildRegexp, EMPTY_STRING);
-        return new LinePart(remainLine, fullNameBetweenQuetes);
-    }
-
-    private LinePart resolveName(String line){
-        return new LinePart(line.substring(line.indexOf(COMMA) + 1), line.substring(0, line.indexOf(COMMA)));
-    }
-
-    private LinePart resolveNumericValue(String line){
-        return line.contains(COMMA) ? new LinePart(line.substring(line.indexOf(COMMA) + 1), line.substring(0, line.indexOf(COMMA))) : new LinePart(EMPTY_STRING, line.substring(line.indexOf(COMMA) + 1));
-    }
-
-    /**
-     * Inner class which is store the remain line and the resolved character(s).
-     */
-    static class LinePart {
-        private final String remainLine;
-        private final String result;
-
-        public LinePart(String remainLine, String result) {
-            this.remainLine = remainLine;
-            this.result = result;
-        }
-
-        public String getRemainLine() {
-            return remainLine;
-        }
-
-        public String getResult() {
-            return result;
-        }
     }
 }
