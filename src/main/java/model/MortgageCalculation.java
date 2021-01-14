@@ -23,22 +23,6 @@ public class MortgageCalculation {
         this.paymentPerMonth = paymentPerMonth;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public double getBorrow() {
-        return borrow;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public double getPaymentPerMonth() {
-        return paymentPerMonth;
-    }
-
     public String getReportSentence(){
         DecimalFormat doubleDecimalFormat = new DecimalFormat("#.##");
         return String.format(REPORT_SENTENCE, customerName, doubleDecimalFormat.format(borrow), period, doubleDecimalFormat.format(paymentPerMonth));

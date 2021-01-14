@@ -15,6 +15,11 @@ public class MortgageCalculator {
     public MortgageCalculator() {
     }
 
+    /**
+     *
+     * @param prospectList list of read prospects
+     * @return list of mortgage object
+     */
     public List<MortgageCalculation> calculate(List<Prospect> prospectList) {
         return prospectList.stream()
                 .map(this::calculateMortgage)
@@ -23,9 +28,13 @@ public class MortgageCalculator {
 
     private MortgageCalculation calculateMortgage(Prospect prospect) {
         double monthlyRate = calculateMonthlyRate(prospect.getInterest());
-        double result = (prospect.getTotalLoan() * (monthlyRate * interestPower(monthlyRate,prospect.getYears() * MONTH_IN_YEAR)))
-                / (interestPower(monthlyRate, prospect.getYears() * MONTH_IN_YEAR) - 1);
-        return new MortgageCalculation(prospect.getFullName(), prospect.getTotalLoan(), prospect.getYears(), result);
+        double paymentPerMonth = (prospect.getTotalLoan() * (monthlyRate * interestPower(monthlyRate, numberOfMonths(prospect.getYears()))))
+                / (interestPower(monthlyRate, numberOfMonths(prospect.getYears())) - 1);
+        return new MortgageCalculation(prospect.getFullName(), prospect.getTotalLoan(), prospect.getYears(), paymentPerMonth);
+    }
+
+    private int numberOfMonths(int years) {
+        return years * MONTH_IN_YEAR;
     }
 
     private double interestPower(double interest, int numberOfMonths){
@@ -35,7 +44,7 @@ public class MortgageCalculator {
         return result;
     }
 
-    private double calculateMonthlyRate(double rate) {
-        return rate / PERCENTAGE / MONTH_IN_YEAR;
+    private double calculateMonthlyRate(double interestRate) {
+        return interestRate / PERCENTAGE / MONTH_IN_YEAR;
     }
 }

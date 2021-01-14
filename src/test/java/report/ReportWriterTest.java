@@ -1,5 +1,6 @@
 package report;
 
+import model.MortgageCalculation;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class ReportWriterTest {
 
     @Test
     public void testShouldGenerateReportFile() throws IOException {
-        new ReportWriter().writeOutFile(Collections.emptyList());
+        new ReportWriter().writeOutFile(Collections.singletonList(new MortgageCalculation("testName", 200.5, 3, 2.5)));
         Path actualFilePath = Paths.get("test-report.txt");
         actualFile = actualFilePath.toFile();
 
