@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 public class Main {
 
-    public static final String FILE_PATH = "prospects.txt";
+    private static final String FILE_PATH = "prospects.txt";
 
     public static void main(String[] args) {
         Optional.ofNullable(FILE_PATH)
