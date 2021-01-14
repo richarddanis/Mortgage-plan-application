@@ -1,5 +1,6 @@
 package model;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
@@ -7,12 +8,15 @@ import java.util.Objects;
  */
 public class MortgageCalculation {
 
-    private final String customerName;
-    private final long borrow;
-    private final int period;
-    private final long paymentPerMonth;
+    private static final String REPORT_SENTENCE = "%s wants to borrow %s € for a period of %d years and pay %s € each month";
+    private static final String FILE_NAME_PLACE_HOLDER = "-report";
 
-    public MortgageCalculation(String customerName, long borrow, int period, long paymentPerMonth) {
+    private final String customerName;
+    private final double borrow;
+    private final int period;
+    private final double paymentPerMonth;
+
+    public MortgageCalculation(String customerName, double borrow, int period, double paymentPerMonth) {
         this.customerName = customerName;
         this.borrow = borrow;
         this.period = period;
@@ -23,7 +27,7 @@ public class MortgageCalculation {
         return customerName;
     }
 
-    public long getBorrow() {
+    public double getBorrow() {
         return borrow;
     }
 
@@ -31,8 +35,17 @@ public class MortgageCalculation {
         return period;
     }
 
-    public long getPaymentPerMonth() {
+    public double getPaymentPerMonth() {
         return paymentPerMonth;
+    }
+
+    public String getReportSentence(){
+        DecimalFormat doubleDecimalFormat = new DecimalFormat("#.##");
+        return String.format(REPORT_SENTENCE, customerName, doubleDecimalFormat.format(borrow), period, doubleDecimalFormat.format(paymentPerMonth));
+    }
+
+    public String getReportFileName(){
+        return customerName + FILE_NAME_PLACE_HOLDER;
     }
 
     @Override

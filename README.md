@@ -9,4 +9,4 @@
 * From Command Line `mvn clean package`
 
 ## Running the Application
-
+* From Command Line `mvn exec:java -Dexec.mainClass=Main`

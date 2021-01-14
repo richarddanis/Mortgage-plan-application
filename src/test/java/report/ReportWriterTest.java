@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Unit test for {@link ReportWriter}.
@@ -26,9 +25,7 @@ public class ReportWriterTest {
 
     @Test
     public void testShouldGenerateReportFile() throws IOException {
-        final List<Report> reportList = Collections.singletonList(new Report("test", "test"));
-
-        new ReportWriter().writeOutFile(reportList);
+        new ReportWriter().writeOutFile(Collections.emptyList());
         Path actualFilePath = Paths.get("test-report.txt");
         actualFile = actualFilePath.toFile();
 
