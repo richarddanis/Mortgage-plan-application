@@ -4,12 +4,13 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
- * Class for representing an mortgage report.
+ * Class for representing an mortgage calculation.
  */
 public class MortgageCalculation {
 
     private static final String REPORT_SENTENCE = "%s wants to borrow %s € for a period of %d years and pay %s € each month";
     private static final String FILE_NAME_PLACE_HOLDER = "-report";
+    private static final DecimalFormat DOUBLE_DECIMAL_FORMAT = new DecimalFormat("#.##");
 
     private final String customerName;
     private final double borrow;
@@ -27,8 +28,7 @@ public class MortgageCalculation {
      * Retrieve the mortgage report sentence.
      */
     public String getReportSentence(){
-        DecimalFormat doubleDecimalFormat = new DecimalFormat("#.##");
-        return String.format(REPORT_SENTENCE, customerName, doubleDecimalFormat.format(borrow), period, doubleDecimalFormat.format(paymentPerMonth));
+        return String.format(REPORT_SENTENCE, customerName, DOUBLE_DECIMAL_FORMAT.format(borrow), period, DOUBLE_DECIMAL_FORMAT.format(paymentPerMonth));
     }
 
     /**
@@ -54,7 +54,7 @@ public class MortgageCalculation {
 
     @Override
     public String toString() {
-        return "MortageReport{" +
+        return "MortgageReport{" +
                 "customerName='" + customerName + '\'' +
                 ", borrow=" + borrow +
                 ", period=" + period +

@@ -27,7 +27,7 @@ public class ReportWriter {
         mortgages.forEach(mortgage -> writeToTextFile(mortgage.getReportFileName(), mortgage.getReportSentence()));
     }
 
-    private static void writeToTextFile(String fileName, String sentence) {
+    private void writeToTextFile(String fileName, String sentence) {
         try {
             Files.write(Paths.get(fileName + FILE_FORMAT), sentence.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
